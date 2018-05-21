@@ -4,8 +4,8 @@
 
 ## Docker:
 To create:
-`docker build .`
-`docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/$(mktemp -d):/run -it <image ID>`
+`docker build --tag local:c_docker_test .`
+`docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/$(mktemp -d):/run -it local:c_docker_test`
 
 Error (on main system): `bash: fork: No space left on device`
 
@@ -18,8 +18,8 @@ Error: `bash: fork: retry: No child processes`
 
 ## Docker:
 To create:
-`docker build .`
-`docker run <image ID>`
+`docker build --tag local:java_docker_test .`
+`docker run local:java_docker_test'
 
 Error (on main system): `bash: fork: No space left on device`
 
@@ -32,3 +32,16 @@ Exception in thread "main" java.lang.OutOfMemoryError: unable to create new nati
 	at java.lang.Thread.start(Thread.java:714)
 	at JavaThreadTest.main(JavaThreadTest.java:11)
 ```
+
+# Docker Controls
+(From [https://success.docker.com/article/how-to-reserve-resource-temporarily-unavailable-errors-due-to-tasksmax-setting])
+```
+$ sudo systemctl set-property docker.service TasksMax=300
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+$ systemctl status docker | grep Tasks
+           └─50-TasksMax.conf
+    Tasks: 33 (limit: 300)
+```
+
+Does not seem to increse from C thread test
