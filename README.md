@@ -13,6 +13,9 @@ Error (on main system): `bash: fork: No space left on device`
 Error: `bash: fork: retry: No child processes`
 
 # Java
+Nice walk through of:
+* [Java Memory Leaks](https://stackify.com/memory-leaks-java/)
+* [Java Heap vs. Stack Space](https://www.journaldev.com/4098/java-heap-space-vs-stack-memory)
 ## Local:
 Error: `bash: fork: retry: No child processes`
 
@@ -20,7 +23,7 @@ Error: `bash: fork: retry: No child processes`
 To create:
 `docker build --tag local:java_docker_test .`
 `docker run local:java_docker_test'
-
+		
 Error (on main system): `bash: fork: No space left on device`
 
 Error (of running program):
