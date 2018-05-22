@@ -1,19 +1,35 @@
 # C
 ## mmap Creation
-```Allocated map: 65514, 0x7f4602757000
-mmap: Cannot allocate memory```
+```
+Allocated map: 65514, 0x7f4602757000
+mmap: Cannot allocate memory
+```
 
 However, the system does not seem to lock like for Java; same user can run another mmap test:
-```cwb@laptop$ (./a.out | tail -1) & (./a.out | tail -1)
+```
+cwb@laptop$ (./a.out | tail -1) & (./a.out | tail -1)
 mmap: Cannot allocate memory
 mmap: Cannot allocate memory
 121126: Allocated map: 65514, 0x7f93dae09000
 121128: Allocated map: 65514, 0x7fbce487a000
 ```
 
-## Thread creation (not even running threads)
+## Thread creation
 ### VM
-`-bash: fork: retry: Resource temporarily unavailable`
+Very unscientific way to see around which thread (order of magnitude?):
+```
+cwb@laptop$ $ (./a.out & while true; do pgrep -f ./a.out  >/dev/null || break ; done; echo "No more a.out" > /dev/stderr) 2>&1 | egrep -B1 -A1 "Resource temporarily unavailable|No more a.out"
+After Thread 13735
+Afterbash: fork: retry: Resource temporarily unavailable
+ Thread 13736
+--
+After Thread 298827
+After Threabash: fork: retry: Resource temporarily unavailable
+d 298828
+--
+Boom
+No more a.out
+```
 
 ### Docker:
 To create:
@@ -33,7 +49,9 @@ Nice walk through of:
 * [LinkedIn naarad](https://github.com/linkedin/naarad) - log summarizer
 
 ## Memory Leak Examples:
-```java -XX:+UseG1GC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:log.gc -verbose:gc -Xmx50m JavaMemLeakTest```
+```
+java -XX:+UseG1GC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -Xloggc:log.gc -verbose:gc -Xmx50m JavaMemLeakTest
+```
 
 ## Testing Per-Thread Stack Size:
 `-XX:ThreadStackSize=512`
@@ -70,3 +88,15 @@ $ systemctl status docker | grep Tasks
 ```
 
 Tasks do not seem to increse from C thread test or Java test
+
+# Aside on `ulimit` overrides
+To work around your user ulimits temporarily, with root one can run:
+```
+$ sudo -s
+# ulimit -v unlimited
+# ulimit -m unlimited 
+# ulimit -u unlimited 
+# # Does not work for number of open files (ulimit -n)
+# sudo -s <user>
+$ <command of interest>
+```

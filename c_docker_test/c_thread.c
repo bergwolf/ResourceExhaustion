@@ -27,7 +27,7 @@ int main()
     int i = 0;
     while(1 == 1) {
       pthread_create(&thread_id, NULL, myThreadFun, NULL);
-      if (thread_id >= 0) {
+      if (thread_id >= 0 && i < 655360) {
         i++;
         printf("After Thread %i\n", i);
       } else {

@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     int i = 0;
     pid_t mypid = getpid();
     char myprefix[26];
-    snprintf(myprefix, 26, "c_mmap_pid_%i_XXXXXX", mypid);
+    snprintf(myprefix, 26, "/tmp/c_mmap_pid_%i_XXXXXX", mypid);
     int fd = mkstemp(myprefix);
     if (fd < 0)
       handle_error("open");
