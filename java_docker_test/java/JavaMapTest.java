@@ -33,7 +33,10 @@ public class JavaMapTest {
       }
     assert(tlmConstructor != null);
     Stack tls = new Stack<>();
-    for(long i = 0; i <= 300000; i++) {
+//    for(long i = 0; i <= 300000; i++) {
+      long i = 0;
+    while(true) {
+      i++;
       try {
 	ThreadLocal<Integer> myThreadLocal = new ThreadLocal<Integer>();
 	myThreadLocal.set(new Integer(0));
@@ -43,6 +46,11 @@ public class JavaMapTest {
         throw new RuntimeException(e);
       }
       System.out.println("TL Count " + i);
+      // allow us to compile but not a possible condition so the above is an
+      // infinite loop
+      if (i < 0) {
+        break;
+      }
     }
     System.out.println("TL stack " + tls.size());
   }
