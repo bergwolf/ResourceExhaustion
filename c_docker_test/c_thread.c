@@ -51,7 +51,7 @@ int main()
         i++;
         printf("%i: After Thread Create %i\n", myPID, i);
       } else {
-        printf("%i: Boom\n", myPID);
+        printf("%i: Boom: %i\n", myPID, i);
         break;
       }
     }
