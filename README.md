@@ -4,6 +4,7 @@
 * Code: [c_docker_test/c_mmap.c](c_docker_test/c_mmap.c)
 * Build: `gcc c_map.c`
 * This runs the system out of `vm.max_map_count` entries
+* Nice kernel memory architecture [explanation](https://manybutfinite.com/post/how-the-kernel-manages-your-memory/)
 * Example failure:
 ```
 Allocated map: 65514, 0x7f4602757000
