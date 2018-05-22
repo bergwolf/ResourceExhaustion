@@ -95,7 +95,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: unable to create new nati
 ```
 
 # Docker Controls:
-(From [https://success.docker.com/article/how-to-reserve-resource-temporarily-unavailable-errors-due-to-tasksmax-setting])
+(From Docker.COM [article](https://success.docker.com/article/how-to-reserve-resource-temporarily-unavailable-errors-due-to-tasksmax-setting))
 ```
 $ sudo systemctl set-property docker.service TasksMax=300
 $ sudo systemctl daemon-reload
