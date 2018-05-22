@@ -32,9 +32,11 @@ No more a.out
 ```
 
 ### Docker:
-To create:
-`docker build --tag local:c_docker_test .`
-`docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/$(mktemp -d):/run -it local:c_docker_test`
+* Nice explanation of [Containers](https://www.slideshare.net/jpetazzo/anatomy-of-a-container-namespaces-cgroups-some-filesystem-magic-linuxcon)
+* Very deep LWN.net explanation of [cgroups](https://lwn.net/Articles/621006/)
+* To create:
+ - `docker build --tag local:c_docker_test .`
+ - `docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /tmp/$(mktemp -d):/run -it local:c_docker_test`
 
 Error (on main system): `bash: fork: No space left on device`
 
