@@ -1,9 +1,11 @@
-# C
-## mmap Creation
+# C Examples
+
+## `mmap` Creation
 * Code: [c_docker_test/c_mmap.c](c_docker_test/c_mmap.c)
 * Build: `gcc c_map.c`
 * This runs the system out of `vm.max_map_count` entries
-* Example failure: ```
+* Example failure:
+```
 Allocated map: 65514, 0x7f4602757000
 mmap: Cannot allocate memory
 ```
